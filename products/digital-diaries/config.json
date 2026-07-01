@@ -1,0 +1,11 @@
+{
+  "name": "Digital Diaries Collection",
+  "description": "Clean diary templates for personal reflection and journaling.",
+  "status": "Available",
+  "icon": "diary",
+  "folder": "digital-diaries",
+  "featured": false,
+  "category": "Digital Diaries",
+  "file": "diaries.zip",
+  "releaseDate": "2026-06-10"
+}

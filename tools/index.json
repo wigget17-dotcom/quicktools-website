@@ -1,0 +1,14 @@
+﻿{
+    "tools":  [
+                  "qr-code-generator",
+                  "invoice-generator",
+                  "password-generator",
+                  "barcode-generator",
+                  "vat-calculator",
+                  "whatsapp-link-generator",
+                  "image-tools",
+                  "pdf-tools",
+                  "unit-converter",
+                  "text-tools"
+              ]
+}

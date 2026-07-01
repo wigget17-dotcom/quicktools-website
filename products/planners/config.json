@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Digital Planner Pack",
+    "description":  "Structured weekly and monthly planners.",
+    "category":  "planners",
+    "status":  "Available",
+    "featured":  true,
+    "version":  "1.0.0",
+    "icon":  "planner",
+    "thumbnail":  "products/planners/thumbnail.webp",
+    "author":  "QuickTools Studio",
+    "created":  "2026-06-01",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "planner",
+                 "productivity"
+             ],
+    "download":  "products/planners/download.pdf",
+    "url":  "products/planners/",
+    "folder":  "planners"
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse QuickTools software utilities.">
+  <title>QuickTools | Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-page="tools">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header" id="top">
+    <div class="container header-row">
+      <a href="index.html" class="brand" aria-label="QuickTools home">
+        <span class="logo-placeholder" aria-hidden="true">QT</span>
+        <span class="brand-text">QuickTools</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="tools.html" aria-current="page">Tools</a>
+        <a href="products.html">Digital Products</a>
+        <a href="categories.html">Categories</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme">Dark</button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero compact-hero">
+      <div class="container">
+        <p class="eyebrow">Tools Library</p>
+        <h1>Professional utilities for daily productivity.</h1>
+        <p class="hero-copy">Tool cards are loaded automatically from each tool folder config.</p>
+        <div class="search-wrap glass-panel">
+          <label for="toolsSearch" class="search-label">Search tools</label>
+          <div class="search-input-row">
+            <input type="search" id="toolsSearch" placeholder="Search tools..." autocomplete="off">
+            <button type="button" id="clearToolsSearch">Clear</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" aria-labelledby="toolsHeading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="toolsHeading">All Tools</h2>
+          <p>QR Code Generator and Invoice Generator are currently marked as Available.</p>
+        </div>
+        <div class="filter-row glass-panel">
+          <label>
+            Category
+            <select id="toolsCategoryFilter">
+              <option value="all">All Categories</option>
+            </select>
+          </label>
+          <label>
+            Status
+            <select id="toolsStatusFilter">
+              <option value="all">All Statuses</option>
+              <option value="Available">Available</option>
+              <option value="Coming Soon">Coming Soon</option>
+              <option value="Beta">Beta</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Unavailable">Unavailable</option>
+            </select>
+          </label>
+          <label>
+            Sort
+            <select id="toolsSortFilter">
+              <option value="newest">Newest</option>
+              <option value="updated">Recently Updated</option>
+              <option value="name">Name A-Z</option>
+            </select>
+          </label>
+          <label class="check-label">
+            <input type="checkbox" id="toolsFeaturedFilter">
+            Featured Only
+          </label>
+        </div>
+        <div class="grid-auto" id="toolsGrid" aria-live="polite" aria-busy="true"></div>
+        <p class="empty-note" id="toolsEmpty" hidden>No tools found.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© 2026 QuickTools.</p>
+      <a href="#top">Back to top</a>
+    </div>
+  </footer>
+</body>
+</html>

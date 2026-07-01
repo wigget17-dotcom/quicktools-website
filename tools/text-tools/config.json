@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Text Tools",
+    "description":  "Transform and clean text quickly.",
+    "category":  "Templates",
+    "status":  "Coming Soon",
+    "featured":  false,
+    "version":  "0.9.0",
+    "icon":  "text",
+    "thumbnail":  "",
+    "author":  "QuickTools Team",
+    "created":  "2026-06-05",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "text",
+                 "content"
+             ],
+    "download":  "",
+    "url":  "tools/text-tools/index.html",
+    "folder":  "text-tools"
+}

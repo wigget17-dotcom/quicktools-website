@@ -1,0 +1,21 @@
+﻿{
+    "name":  "VAT Calculator",
+    "description":  "Calculate VAT-inclusive and VAT-exclusive totals.",
+    "category":  "Finance",
+    "status":  "Coming Soon",
+    "featured":  false,
+    "version":  "0.9.0",
+    "icon":  "vat",
+    "thumbnail":  "",
+    "author":  "QuickTools Team",
+    "created":  "2026-05-28",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "vat",
+                 "tax",
+                 "finance"
+             ],
+    "download":  "",
+    "url":  "tools/vat-calculator/index.html",
+    "folder":  "vat-calculator"
+}

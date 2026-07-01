@@ -1,0 +1,11 @@
+{
+  "name": "Printable Templates Bundle",
+  "description": "Printable sheets for planning, tracking, and organization.",
+  "status": "Beta",
+  "icon": "print",
+  "folder": "printable-templates",
+  "featured": false,
+  "category": "Printable Templates",
+  "file": "printables.zip",
+  "releaseDate": "2026-05-29"
+}

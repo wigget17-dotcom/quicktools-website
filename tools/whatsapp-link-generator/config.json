@@ -1,0 +1,21 @@
+﻿{
+    "name":  "WhatsApp Link Generator",
+    "description":  "Create click-to-chat WhatsApp links.",
+    "category":  "Marketing",
+    "status":  "Coming Soon",
+    "featured":  false,
+    "version":  "0.9.0",
+    "icon":  "whatsapp",
+    "thumbnail":  "",
+    "author":  "QuickTools Team",
+    "created":  "2026-05-30",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "whatsapp",
+                 "links",
+                 "marketing"
+             ],
+    "download":  "",
+    "url":  "tools/whatsapp-link-generator/index.html",
+    "folder":  "whatsapp-link-generator"
+}

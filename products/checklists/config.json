@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Checklist Essentials",
+    "description":  "Ready-to-use process and routine checklists.",
+    "category":  "checklists",
+    "status":  "Available",
+    "featured":  false,
+    "version":  "1.0.0",
+    "icon":  "check",
+    "thumbnail":  "products/checklists/thumbnail.webp",
+    "author":  "QuickTools Studio",
+    "created":  "2026-06-07",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "checklists",
+                 "workflow"
+             ],
+    "download":  "products/checklists/download.pdf",
+    "url":  "products/checklists/",
+    "folder":  "checklists"
+}

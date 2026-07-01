@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Password Generator",
+    "description":  "Generate secure random passwords with options.",
+    "category":  "Security",
+    "status":  "Coming Soon",
+    "featured":  false,
+    "version":  "0.9.0",
+    "icon":  "lock",
+    "thumbnail":  "",
+    "author":  "QuickTools Team",
+    "created":  "2026-05-24",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "password",
+                 "security"
+             ],
+    "download":  "",
+    "url":  "tools/password-generator/index.html",
+    "folder":  "password-generator"
+}

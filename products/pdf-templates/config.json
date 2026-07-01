@@ -1,0 +1,11 @@
+{
+  "name": "PDF Templates Library",
+  "description": "Ready-to-use PDF templates for business and personal workflows.",
+  "status": "Available",
+  "icon": "pdf",
+  "folder": "pdf-templates",
+  "featured": true,
+  "category": "PDF Templates",
+  "file": "templates.pdf",
+  "releaseDate": "2026-06-25"
+}

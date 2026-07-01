@@ -1,0 +1,21 @@
+﻿{
+    "name":  "QR Code Generator",
+    "description":  "Generate QR codes for links and text.",
+    "category":  "Utilities",
+    "status":  "Available",
+    "featured":  true,
+    "version":  "1.0.0",
+    "icon":  "qr",
+    "thumbnail":  "",
+    "author":  "QuickTools Team",
+    "created":  "2026-05-20",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "qr",
+                 "code",
+                 "generator"
+             ],
+    "download":  "",
+    "url":  "tools/qr-code-generator/index.html",
+    "folder":  "qr-code-generator"
+}

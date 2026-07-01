@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Template Bundle",
+    "description":  "Versatile printable and digital templates.",
+    "category":  "templates",
+    "status":  "Beta",
+    "featured":  true,
+    "version":  "0.9.0",
+    "icon":  "template",
+    "thumbnail":  "products/templates/thumbnail.webp",
+    "author":  "QuickTools Studio",
+    "created":  "2026-06-03",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "template",
+                 "printable"
+             ],
+    "download":  "products/templates/download.pdf",
+    "url":  "products/templates/",
+    "folder":  "templates"
+}

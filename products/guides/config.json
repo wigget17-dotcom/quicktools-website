@@ -1,0 +1,11 @@
+{
+  "name": "How-To Guides Library",
+  "description": "Step-by-step guides for digital workflows and creators.",
+  "status": "Unavailable",
+  "icon": "guide",
+  "folder": "guides",
+  "featured": false,
+  "category": "Guides",
+  "file": "guides.pdf",
+  "releaseDate": "2026-02-11"
+}

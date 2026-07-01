@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Guided Journal Set",
+    "description":  "Prompt-based journals for focus and reflection.",
+    "category":  "journals",
+    "status":  "Available",
+    "featured":  false,
+    "version":  "1.0.0",
+    "icon":  "journal",
+    "thumbnail":  "products/journals/thumbnail.webp",
+    "author":  "QuickTools Studio",
+    "created":  "2026-06-05",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "journal",
+                 "mindset"
+             ],
+    "download":  "products/journals/download.pdf",
+    "url":  "products/journals/",
+    "folder":  "journals"
+}

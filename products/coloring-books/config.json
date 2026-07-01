@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Coloring Book Bundle",
+    "description":  "Printable coloring books for all ages.",
+    "category":  "coloring-books",
+    "status":  "Maintenance",
+    "featured":  false,
+    "version":  "0.9.0",
+    "icon":  "color",
+    "thumbnail":  "products/coloring-books/thumbnail.webp",
+    "author":  "QuickTools Studio",
+    "created":  "2026-06-09",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "coloring",
+                 "printable"
+             ],
+    "download":  "products/coloring-books/download.pdf",
+    "url":  "products/coloring-books/",
+    "folder":  "coloring-books"
+}

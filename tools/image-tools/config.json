@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Image Tools",
+    "description":  "Resize, compress, and convert images.",
+    "category":  "Media",
+    "status":  "Coming Soon",
+    "featured":  false,
+    "version":  "0.9.0",
+    "icon":  "image",
+    "thumbnail":  "",
+    "author":  "QuickTools Team",
+    "created":  "2026-06-02",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "image",
+                 "media"
+             ],
+    "download":  "",
+    "url":  "tools/image-tools/index.html",
+    "folder":  "image-tools"
+}

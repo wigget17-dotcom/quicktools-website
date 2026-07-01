@@ -1,0 +1,20 @@
+﻿{
+    "name":  "eBook Starter Library",
+    "description":  "Practical eBooks for productivity and growth.",
+    "category":  "ebooks",
+    "status":  "Available",
+    "featured":  false,
+    "version":  "1.0.0",
+    "icon":  "ebook",
+    "thumbnail":  "products/ebooks/thumbnail.webp",
+    "author":  "QuickTools Studio",
+    "created":  "2026-06-04",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "ebooks",
+                 "learning"
+             ],
+    "download":  "products/ebooks/download.pdf",
+    "url":  "products/ebooks/",
+    "folder":  "ebooks"
+}

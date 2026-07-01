@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Barcode Generator",
+    "description":  "Generate barcodes for inventory and labels.",
+    "category":  "Utilities",
+    "status":  "Coming Soon",
+    "featured":  false,
+    "version":  "0.9.0",
+    "icon":  "barcode",
+    "thumbnail":  "",
+    "author":  "QuickTools Team",
+    "created":  "2026-05-25",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "barcode",
+                 "labels"
+             ],
+    "download":  "",
+    "url":  "tools/barcode-generator/index.html",
+    "folder":  "barcode-generator"
+}

@@ -1,0 +1,21 @@
+﻿{
+    "name":  "Invoice Generator",
+    "description":  "Create clean business invoices instantly.",
+    "category":  "Business",
+    "status":  "Available",
+    "featured":  true,
+    "version":  "1.0.0",
+    "icon":  "invoice",
+    "thumbnail":  "",
+    "author":  "QuickTools Team",
+    "created":  "2026-05-22",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "invoice",
+                 "billing",
+                 "business"
+             ],
+    "download":  "",
+    "url":  "tools/invoice-generator/index.html",
+    "folder":  "invoice-generator"
+}

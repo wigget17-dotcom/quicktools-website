@@ -1,0 +1,20 @@
+﻿{
+    "name":  "Digital Diary Collection",
+    "description":  "Clean diary layouts for daily notes.",
+    "category":  "diaries",
+    "status":  "Available",
+    "featured":  false,
+    "version":  "1.0.0",
+    "icon":  "diary",
+    "thumbnail":  "products/diaries/thumbnail.webp",
+    "author":  "QuickTools Studio",
+    "created":  "2026-06-02",
+    "updated":  "2026-07-01",
+    "tags":  [
+                 "diary",
+                 "notes"
+             ],
+    "download":  "products/diaries/download.pdf",
+    "url":  "products/diaries/",
+    "folder":  "diaries"
+}
