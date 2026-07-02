@@ -59,6 +59,12 @@ const cardTypeLabels = {
   product: "View Product"
 };
 
+const unavailableStatuses = new Set([
+  "Coming Soon",
+  "Unavailable",
+  "Maintenance"
+]);
+
 const toolIconSet = {
   "invoice-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 8h24l12 12v36H16z"></path><path d="M40 8v12h12"></path><path d="M24 28h16"></path><path d="M24 36h20"></path><path d="M24 44h12"></path></svg>',
   "password-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="28" width="36" height="24" rx="8"></rect><path d="M22 28v-7a10 10 0 0 1 20 0v7"></path><path d="M31 37h2"></path><path d="M50 34l8-8"></path><circle cx="51" cy="33" r="4"></circle></svg>',
@@ -92,6 +98,10 @@ const toolBadgeMap = {
 const officialToolIconImages = {
   "qr-code-generator": "assets/images/tools/qr-code-generator-v2.png"
 };
+
+const officialUnavailableImage = "assets/images/tools/coming-soon.png";
+
+const isUnavailableItem = (item) => unavailableStatuses.has(String(item.status || "").trim());
 
 const getOfficialToolImage = (item) => {
   const folderKey = String(item.folder || "").toLowerCase();
@@ -429,12 +439,15 @@ const createCardIconElement = (item) => {
   icon.className = "item-icon";
   icon.setAttribute("aria-hidden", "true");
 
-  const imageSrc = getOfficialToolImage(item);
+  const imageSrc = isUnavailableItem(item) ? officialUnavailableImage : getOfficialToolImage(item);
 
-  if (item.type === "tool" && imageSrc) {
+  if (imageSrc) {
     icon.classList.add("item-icon-image");
     const image = document.createElement("img");
     image.className = "item-icon-media";
+    if (isUnavailableItem(item)) {
+      image.classList.add("item-icon-media-coming-soon");
+    }
     image.src = imageSrc;
     image.width = 96;
     image.height = 96;
@@ -460,8 +473,18 @@ const buildCardBadges = (item) => {
 const createItemCard = (item, index = 0) => {
   const card = document.createElement("article");
   card.className = `item-card item-card--${item.type}`;
+  if (isUnavailableItem(item)) {
+    card.classList.add("item-card-unavailable");
+  }
   card.style.setProperty("--delay", `${index * 35}ms`);
   card.id = item.folder;
+
+  if (isUnavailableItem(item)) {
+    const comingSoonBadge = document.createElement("span");
+    comingSoonBadge.className = "item-coming-soon-badge";
+    comingSoonBadge.textContent = "Coming Soon";
+    card.append(comingSoonBadge);
+  }
 
   const visual = document.createElement("div");
   visual.className = "item-visual";

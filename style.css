@@ -1413,6 +1413,7 @@ h6 {
 
 .item-card {
   overflow: hidden;
+  position: relative;
   padding: 20px;
   gap: 14px;
   background: linear-gradient(180deg, #ffffff 0%, #fcfdfe 100%);
@@ -1481,6 +1482,28 @@ h6 {
   object-fit: contain;
   object-position: center;
   max-width: none;
+}
+
+.item-icon-media-coming-soon {
+  border-radius: 16px;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+}
+
+.item-coming-soon-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(37, 99, 235, 0.28);
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.94), rgba(191, 219, 254, 0.94));
+  color: #1e3a8a;
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 14px rgba(30, 64, 175, 0.14);
 }
 
 .item-card:hover .item-icon.item-icon-image {
