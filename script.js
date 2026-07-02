@@ -281,10 +281,23 @@ const loadRepoTree = async () => {
   return repoTreePromise;
 };
 
-const loadCollectionFromRepo = async ({ rootPath, type }) => {
+const loadCollectionFromRepo = async ({ rootPath, type, indexFile, indexKey }) => {
   const tree = await loadRepoTree();
+  const allowedFolders = await discoverFoldersFromManifest(indexFile, indexKey);
+  const allowedSet = new Set(allowedFolders.map((folder) => String(folder || "").trim()).filter(Boolean));
   const configPaths = tree
-    .filter((entry) => entry.type === "blob" && entry.path.startsWith(`${rootPath}/`) && entry.path.endsWith("/config.json"))
+    .filter((entry) => {
+      if (entry.type !== "blob" || !entry.path.startsWith(`${rootPath}/`) || !entry.path.endsWith("/config.json")) {
+        return false;
+      }
+
+      if (allowedSet.size === 0) {
+        return false;
+      }
+
+      const folder = entry.path.replace(`${rootPath}/`, "").replace(/\/config\.json$/, "");
+      return allowedSet.has(folder);
+    })
     .map((entry) => entry.path)
     .sort((a, b) => a.localeCompare(b));
 
@@ -353,7 +366,12 @@ const loadCollection = async ({
   type
 }) => {
   if (window.location.protocol !== "file:") {
-    const repoResults = await loadCollectionFromRepo({ rootPath: basePath, type });
+    const repoResults = await loadCollectionFromRepo({
+      rootPath: basePath,
+      type,
+      indexFile,
+      indexKey
+    });
 
     if (repoResults.length > 0) {
       return repoResults;
