@@ -5,7 +5,7 @@
     "status":  "Available",
     "featured":  true,
     "version":  "1.0.0",
-    "icon":  "qr",
+    "icon":  "assets/images/tools/qr-code-generator-v2.png",
     "thumbnail":  "screenshot.png",
     "author":  "QuickTools Team",
     "created":  "2026-05-20",

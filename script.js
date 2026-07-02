@@ -60,7 +60,6 @@ const cardTypeLabels = {
 };
 
 const toolIconSet = {
-  "qr-code-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="16" height="16" rx="4"></rect><rect x="41" y="7" width="16" height="16" rx="4"></rect><rect x="7" y="41" width="16" height="16" rx="4"></rect><rect x="27" y="27" width="10" height="10" rx="2"></rect><rect x="41" y="27" width="6" height="6" rx="2"></rect><rect x="51" y="27" width="6" height="6" rx="2"></rect><rect x="41" y="37" width="6" height="6" rx="2"></rect><rect x="51" y="37" width="6" height="6" rx="2"></rect><rect x="27" y="41" width="6" height="6" rx="2"></rect><rect x="37" y="41" width="6" height="6" rx="2"></rect></svg>',
   "invoice-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 8h24l12 12v36H16z"></path><path d="M40 8v12h12"></path><path d="M24 28h16"></path><path d="M24 36h20"></path><path d="M24 44h12"></path></svg>',
   "password-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="28" width="36" height="24" rx="8"></rect><path d="M22 28v-7a10 10 0 0 1 20 0v7"></path><path d="M31 37h2"></path><path d="M50 34l8-8"></path><circle cx="51" cy="33" r="4"></circle></svg>',
   "barcode-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="16" width="4" height="32"></rect><rect x="16" y="16" width="2" height="32"></rect><rect x="22" y="16" width="6" height="32"></rect><rect x="32" y="16" width="3" height="32"></rect><rect x="39" y="16" width="7" height="32"></rect><rect x="50" y="16" width="2" height="32"></rect><rect x="56" y="16" width="2" height="32"></rect></svg>',
@@ -91,7 +90,23 @@ const toolBadgeMap = {
 };
 
 const officialToolIconImages = {
-  "qr-code-generator": "assets/images/tools/qr-code-generator.png"
+  "qr-code-generator": "assets/images/tools/qr-code-generator-v2.png"
+};
+
+const getOfficialToolImage = (item) => {
+  const folderKey = String(item.folder || "").toLowerCase();
+
+  if (officialToolIconImages[folderKey]) {
+    return officialToolIconImages[folderKey];
+  }
+
+  const nameKey = String(item.name || "").trim().toLowerCase();
+
+  if (item.type === "tool" && nameKey === "qr code generator") {
+    return officialToolIconImages["qr-code-generator"];
+  }
+
+  return "";
 };
 
 const getItemIconSvg = (item) => {
@@ -104,7 +119,7 @@ const getItemIconSvg = (item) => {
     }
 
     if (/qr|barcode|code/.test(folder)) {
-      return toolIconSet["qr-code-generator"];
+      return toolIconSet["text-tools"];
     }
 
     if (/invoice|vat|business/.test(folder)) {
@@ -414,14 +429,15 @@ const createCardIconElement = (item) => {
   icon.className = "item-icon";
   icon.setAttribute("aria-hidden", "true");
 
-  const folderKey = String(item.folder || "").toLowerCase();
-  const imageSrc = officialToolIconImages[folderKey];
+  const imageSrc = getOfficialToolImage(item);
 
   if (item.type === "tool" && imageSrc) {
     icon.classList.add("item-icon-image");
     const image = document.createElement("img");
     image.className = "item-icon-media";
     image.src = imageSrc;
+    image.width = 96;
+    image.height = 96;
     image.alt = "";
     image.loading = "lazy";
     image.decoding = "async";
