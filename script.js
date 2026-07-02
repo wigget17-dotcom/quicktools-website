@@ -66,15 +66,7 @@ const unavailableStatuses = new Set([
 ]);
 
 const toolIconSet = {
-  "invoice-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 8h24l12 12v36H16z"></path><path d="M40 8v12h12"></path><path d="M24 28h16"></path><path d="M24 36h20"></path><path d="M24 44h12"></path></svg>',
-  "password-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="28" width="36" height="24" rx="8"></rect><path d="M22 28v-7a10 10 0 0 1 20 0v7"></path><path d="M31 37h2"></path><path d="M50 34l8-8"></path><circle cx="51" cy="33" r="4"></circle></svg>',
-  "barcode-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="16" width="4" height="32"></rect><rect x="16" y="16" width="2" height="32"></rect><rect x="22" y="16" width="6" height="32"></rect><rect x="32" y="16" width="3" height="32"></rect><rect x="39" y="16" width="7" height="32"></rect><rect x="50" y="16" width="2" height="32"></rect><rect x="56" y="16" width="2" height="32"></rect></svg>',
-  "image-tools": '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="12" width="44" height="40" rx="8"></rect><circle cx="24" cy="26" r="4"></circle><path d="M18 44l11-11 7 7 5-5 7 9"></path></svg>',
-  "pdf-tools": '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 8h20l12 12v36H18z"></path><path d="M38 8v12h12"></path><path d="M24 30h16"></path><path d="M24 38h16"></path><path d="M24 46h10"></path></svg>',
-  "unit-converter": '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="10" width="36" height="44" rx="10"></rect><path d="M22 22h20"></path><path d="M22 32h8"></path><path d="M34 32h8"></path><path d="M22 42h8"></path><path d="M34 42h8"></path><path d="M46 28l6 4-6 4"></path><path d="M18 28l-6 4 6 4"></path></svg>',
-  "text-tools": '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 10h32l8 8v36H16z"></path><path d="M40 10v8h8"></path><path d="M24 26h16"></path><path d="M24 34h20"></path><path d="M24 42h12"></path></svg>',
-  "vat-calculator": '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="8" width="36" height="48" rx="10"></rect><rect x="22" y="16" width="20" height="8" rx="4"></rect><path d="M22 32h8"></path><path d="M34 32h8"></path><path d="M22 42h8"></path><path d="M34 42h8"></path><path d="M48 24l8 8"></path><path d="M56 24l-8 8"></path></svg>',
-  "whatsapp-link-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 10c-11 0-20 8-20 19 0 4 1 8 4 11l-3 12 12-3c3 2 7 4 11 4 11 0 20-8 20-19s-9-24-24-24z"></path><path d="M24 24c2 6 6 10 12 12"></path><path d="M28 22l4 2-2 4"></path></svg>'
+  "invoice-generator": '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 8h24l12 12v36H16z"></path><path d="M40 8v12h12"></path><path d="M24 28h16"></path><path d="M24 36h20"></path><path d="M24 44h12"></path></svg>'
 };
 
 const productIconSet = {
@@ -133,20 +125,12 @@ const getItemIconSvg = (item) => {
       return toolIconSet[folder];
     }
 
-    if (/qr|barcode|code/.test(folder)) {
-      return toolIconSet["text-tools"];
+    if (/qr|code/.test(folder)) {
+      return '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="7" y="7" width="16" height="16" rx="4"></rect><rect x="41" y="7" width="16" height="16" rx="4"></rect><rect x="7" y="41" width="16" height="16" rx="4"></rect><rect x="27" y="27" width="10" height="10" rx="2"></rect><rect x="41" y="27" width="6" height="6" rx="2"></rect><rect x="51" y="27" width="6" height="6" rx="2"></rect><rect x="41" y="37" width="6" height="6" rx="2"></rect><rect x="51" y="37" width="6" height="6" rx="2"></rect><rect x="27" y="41" width="6" height="6" rx="2"></rect><rect x="37" y="41" width="6" height="6" rx="2"></rect></svg>';
     }
 
-    if (/invoice|vat|business/.test(folder)) {
+    if (/invoice|business/.test(folder)) {
       return toolIconSet["invoice-generator"];
-    }
-
-    if (/password|secure|lock/.test(folder)) {
-      return toolIconSet["password-generator"];
-    }
-
-    if (/pdf|text|image|unit|whatsapp/.test(folder)) {
-      return toolIconSet[folder] || toolIconSet["text-tools"];
     }
   }
 
