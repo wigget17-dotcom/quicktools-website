@@ -1,15 +1,467 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>invoice-generator | QuickTools</title>
+  <meta name="description" content="QuickTools Invoice Generator - professional browser-based invoice creation tool.">
+  <title>QuickTools - Invoice Generator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <h1>invoice-generator</h1>
-    <p>Tool page placeholder. Implementation coming soon.</p>
-    <p><a href="../../tools.html">Back to tools</a></p>
+  <header class="app-header">
+    <div class="header-content container">
+      <div>
+        <p class="kicker">QuickTools</p>
+        <h1>Invoice Generator</h1>
+        <p class="subtitle">Professional invoices for small businesses. 100% browser-based.</p>
+      </div>
+      <div class="badge-group" aria-label="Privacy and security badges">
+        <span class="badge">&#10004; 100% Browser-Based</span>
+        <span class="badge">&#10004; No Data Stored</span>
+        <span class="badge">&#10004; Private &amp; Secure</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container app-main">
+    <section class="toolbar card no-print" aria-label="Invoice actions">
+      <button id="newInvoiceBtn" class="btn btn-secondary" type="button">New Invoice</button>
+      <button id="saveInvoiceBtn" class="btn btn-primary" type="button">Save Invoice</button>
+      <button id="loadInvoiceBtn" class="btn btn-secondary" type="button">Load Invoice</button>
+      <button id="printInvoiceBtn" class="btn btn-secondary" type="button">Print Invoice</button>
+      <button id="downloadPdfBtn" class="btn btn-primary" type="button">Download PDF</button>
+      <button id="openSettingsBtn" class="btn btn-secondary" type="button">Settings</button>
+      <button id="clearInvoiceBtn" class="btn btn-danger" type="button">Clear Invoice</button>
+    </section>
+
+    <section id="errorPanel" class="error-panel hidden" aria-live="polite">
+      <h2>Please correct the following:</h2>
+      <ul id="errorList"></ul>
+    </section>
+
+    <div class="layout-grid">
+      <div class="form-column">
+        <section class="card" aria-labelledby="companyHeading">
+          <h2 id="companyHeading">Company Information</h2>
+          <div class="grid two-col">
+            <div class="field full-width">
+              <label for="businessName">Business Name *</label>
+              <input id="businessName" class="company-field" type="text" required>
+            </div>
+            <div class="field">
+              <label for="logoUpload">Logo Upload</label>
+              <input id="logoUpload" type="file" accept="image/*">
+            </div>
+            <div class="field full-width">
+              <label for="companyAddress">Address *</label>
+              <textarea id="companyAddress" class="company-field" rows="2" required></textarea>
+            </div>
+            <div class="field">
+              <label for="companyPhone">Telephone *</label>
+              <input id="companyPhone" class="company-field" type="tel" required>
+            </div>
+            <div class="field">
+              <label for="companyEmail">Email *</label>
+              <input id="companyEmail" class="company-field" type="email" required>
+            </div>
+            <div class="field">
+              <label for="companyWebsite">Website</label>
+              <input id="companyWebsite" class="company-field" type="url" placeholder="https://example.com">
+            </div>
+            <div class="field">
+              <label for="vatNumber">VAT Number *</label>
+              <input id="vatNumber" class="company-field" type="text" required>
+            </div>
+            <div class="field">
+              <label for="registrationNumber">Registration Number *</label>
+              <input id="registrationNumber" class="company-field" type="text" required>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="customerHeading">
+          <h2 id="customerHeading">Customer Information</h2>
+          <div class="grid two-col">
+            <div class="field">
+              <label for="customerName">Customer Name *</label>
+              <input id="customerName" type="text" required>
+            </div>
+            <div class="field">
+              <label for="customerCompany">Company Name</label>
+              <input id="customerCompany" type="text">
+            </div>
+            <div class="field full-width">
+              <label for="customerAddress">Address *</label>
+              <textarea id="customerAddress" rows="2" required></textarea>
+            </div>
+            <div class="field">
+              <label for="customerPhone">Telephone *</label>
+              <input id="customerPhone" type="tel" required>
+            </div>
+            <div class="field">
+              <label for="customerEmail">Email *</label>
+              <input id="customerEmail" type="email" required>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="invoiceHeading">
+          <h2 id="invoiceHeading">Invoice Details</h2>
+          <div class="grid two-col">
+            <div class="field">
+              <label for="invoiceNumber">Invoice Number *</label>
+              <input id="invoiceNumber" type="text" readonly required>
+            </div>
+            <div class="field">
+              <label for="invoicePrefix">Invoice Prefix</label>
+              <input id="invoicePrefix" class="company-field setting-field" type="text" value="INV">
+            </div>
+            <div class="field">
+              <label for="referenceNumber">Reference Number</label>
+              <input id="referenceNumber" type="text">
+            </div>
+            <div class="field">
+              <label for="invoiceDate">Invoice Date *</label>
+              <input id="invoiceDate" type="date" required>
+            </div>
+            <div class="field">
+              <label for="dueDate">Due Date *</label>
+              <input id="dueDate" type="date" required>
+            </div>
+            <div class="field">
+              <label for="currencySymbol">Currency</label>
+              <select id="currencySymbol" class="setting-field">
+                <option value="$">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="ZAR">ZAR (R)</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="productsHeading">
+          <div class="card-title-row">
+            <h2 id="productsHeading">Products &amp; Services</h2>
+            <button id="addItemBtn" class="btn btn-secondary" type="button">Add Item</button>
+          </div>
+          <div class="table-wrapper">
+            <table class="invoice-table" aria-label="Invoice line items">
+              <thead>
+                <tr>
+                  <th>Description *</th>
+                  <th>Qty *</th>
+                  <th>Unit Price *</th>
+                  <th>Discount %</th>
+                  <th>VAT %</th>
+                  <th>Line Total</th>
+                  <th class="no-print">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="itemsBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="totalsHeading">
+          <h2 id="totalsHeading">Totals Summary</h2>
+          <div class="totals-grid">
+            <p><span>Subtotal</span><strong id="subtotalValue">0.00</strong></p>
+            <p><span>Discount Total</span><strong id="discountValue">0.00</strong></p>
+            <p><span>VAT Total</span><strong id="vatValue">0.00</strong></p>
+            <p class="grand"><span>Grand Total</span><strong id="grandTotalValue">0.00</strong></p>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="paymentHeading">
+          <h2 id="paymentHeading">Payment Information</h2>
+          <div class="grid two-col">
+            <div class="field">
+              <label for="bankName">Bank Name *</label>
+              <input id="bankName" class="payment-field" type="text" required>
+            </div>
+            <div class="field">
+              <label for="accountName">Account Name *</label>
+              <input id="accountName" class="payment-field" type="text" required>
+            </div>
+            <div class="field">
+              <label for="accountNumber">Account Number *</label>
+              <input id="accountNumber" class="payment-field" type="text" required>
+            </div>
+            <div class="field">
+              <label for="branchCode">Branch Code *</label>
+              <input id="branchCode" class="payment-field" type="text" required>
+            </div>
+            <div class="field">
+              <label for="paymentReference">Reference *</label>
+              <input id="paymentReference" class="payment-field" type="text" required>
+            </div>
+            <div class="field full-width">
+              <label for="paymentTerms">Payment Terms *</label>
+              <textarea id="paymentTerms" class="payment-field" rows="2" required></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="notesHeading">
+          <h2 id="notesHeading">Notes</h2>
+          <div class="grid one-col">
+            <div class="field">
+              <label for="notes">Notes</label>
+              <textarea id="notes" rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label for="terms">Terms &amp; Conditions</label>
+              <textarea id="terms" rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label for="thankYouMessage">Thank You Message</label>
+              <textarea id="thankYouMessage" rows="2">Thank you for your business.</textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="card privacy-card" aria-labelledby="privacyHeading">
+          <h2 id="privacyHeading">Privacy &amp; Security</h2>
+          <p>
+            This Invoice Generator runs fully in your browser. All invoice, customer, company and payment details
+            remain on your device and are never uploaded to any external server.
+          </p>
+          <div class="badge-group">
+            <span class="badge">&#10004; 100% Browser-Based</span>
+            <span class="badge">&#10004; No Data Stored</span>
+            <span class="badge">&#10004; Private &amp; Secure</span>
+          </div>
+        </section>
+
+        <section class="card no-print" id="settingsCard" aria-labelledby="settingsHeading">
+          <h2 id="settingsHeading">Settings</h2>
+          <p id="profileProtectionStatus">Business Profile protection is disabled.</p>
+          <div class="toolbar">
+            <button id="enableProtectionBtn" class="btn btn-secondary" type="button">Enable Password Protection</button>
+            <button id="unlockProfileBtn" class="btn btn-secondary hidden" type="button">Unlock Business Profile</button>
+            <button id="changePasswordBtn" class="btn btn-secondary hidden" type="button">Change Password</button>
+            <button id="removePasswordBtn" class="btn btn-danger hidden" type="button">Remove Password</button>
+            <button id="resetProfileBtn" class="btn btn-danger" type="button">Reset Business Profile</button>
+          </div>
+          <p class="subtitle">Password protection only applies to saved Business Profile settings. Invoices remain accessible.</p>
+        </section>
+      </div>
+
+      <aside class="preview-column">
+        <section class="card preview-card">
+          <h2>Invoice Preview</h2>
+          <div id="printableInvoice" class="printable-invoice">
+            <div class="preview-top">
+              <div class="preview-business">
+                <img id="logoPreview" class="logo-preview hidden" alt="Business logo preview">
+                <h3 id="previewBusinessName">Business Name</h3>
+                <p id="previewCompanyAddress"></p>
+                <p>
+                  <span id="previewCompanyPhone"></span>
+                  <span id="previewCompanyEmail"></span>
+                </p>
+                <p id="previewCompanyWebsite"></p>
+                <p><strong>VAT:</strong> <span id="previewVatNumber"></span></p>
+                <p><strong>Reg:</strong> <span id="previewRegistrationNumber"></span></p>
+              </div>
+              <div class="preview-meta">
+                <h3>INVOICE</h3>
+                <p><strong>No:</strong> <span id="previewInvoiceNumber"></span></p>
+                <p><strong>Date:</strong> <span id="previewInvoiceDate"></span></p>
+                <p><strong>Due:</strong> <span id="previewDueDate"></span></p>
+                <p><strong>Reference:</strong> <span id="previewReferenceNumber"></span></p>
+              </div>
+            </div>
+
+            <div class="preview-customer">
+              <h4>Bill To</h4>
+              <p id="previewCustomerName"></p>
+              <p id="previewCustomerCompany"></p>
+              <p id="previewCustomerAddress"></p>
+              <p>
+                <span id="previewCustomerPhone"></span>
+                <span id="previewCustomerEmail"></span>
+              </p>
+            </div>
+
+            <table class="preview-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Disc %</th>
+                  <th>VAT %</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="previewItemsBody"></tbody>
+            </table>
+
+            <div class="preview-totals">
+              <p><span>Subtotal:</span> <strong id="previewSubtotal">0.00</strong></p>
+              <p><span>Discount:</span> <strong id="previewDiscount">0.00</strong></p>
+              <p><span>VAT:</span> <strong id="previewVat">0.00</strong></p>
+              <p class="grand"><span>Grand Total:</span> <strong id="previewGrand">0.00</strong></p>
+            </div>
+
+            <div class="preview-payment">
+              <h4>Payment Information</h4>
+              <p><strong>Bank:</strong> <span id="previewBankName"></span></p>
+              <p><strong>Account Name:</strong> <span id="previewAccountName"></span></p>
+              <p><strong>Account Number:</strong> <span id="previewAccountNumber"></span></p>
+              <p><strong>Branch Code:</strong> <span id="previewBranchCode"></span></p>
+              <p><strong>Reference:</strong> <span id="previewPaymentReference"></span></p>
+              <p><strong>Terms:</strong> <span id="previewPaymentTerms"></span></p>
+            </div>
+
+            <div class="preview-notes">
+              <h4>Notes &amp; Terms</h4>
+              <p id="previewNotes"></p>
+              <p id="previewTerms"></p>
+              <p class="thank-you" id="previewThanks"></p>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
   </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>QuickTools Invoice Generator | Built for small businesses | Browser-only and private by design.</p>
+    </div>
+  </footer>
+
+  <section id="setupModal" class="modal-overlay hidden no-print" aria-modal="true" role="dialog" aria-labelledby="setupModalHeading">
+    <div class="modal-card">
+      <h2 id="setupModalHeading">Business Profile Setup</h2>
+      <p>Set up your business profile now. You can also skip and start creating invoices immediately.</p>
+      <div class="grid two-col">
+        <div class="field full-width">
+          <label for="setupBusinessName">Business Name *</label>
+          <input id="setupBusinessName" type="text">
+        </div>
+        <div class="field">
+          <label for="setupLogoUpload">Logo</label>
+          <input id="setupLogoUpload" type="file" accept="image/*">
+        </div>
+        <div class="field full-width">
+          <label for="setupAddress">Address *</label>
+          <textarea id="setupAddress" rows="2"></textarea>
+        </div>
+        <div class="field">
+          <label for="setupPhone">Telephone *</label>
+          <input id="setupPhone" type="tel">
+        </div>
+        <div class="field">
+          <label for="setupEmail">Email *</label>
+          <input id="setupEmail" type="email">
+        </div>
+        <div class="field">
+          <label for="setupWebsite">Website</label>
+          <input id="setupWebsite" type="url" placeholder="https://example.com">
+        </div>
+        <div class="field">
+          <label for="setupVat">VAT Number *</label>
+          <input id="setupVat" type="text">
+        </div>
+        <div class="field">
+          <label for="setupReg">Registration Number *</label>
+          <input id="setupReg" type="text">
+        </div>
+        <div class="field">
+          <label for="setupBankName">Bank Name *</label>
+          <input id="setupBankName" type="text">
+        </div>
+        <div class="field">
+          <label for="setupAccountName">Account Name *</label>
+          <input id="setupAccountName" type="text">
+        </div>
+        <div class="field">
+          <label for="setupAccountNumber">Account Number *</label>
+          <input id="setupAccountNumber" type="text">
+        </div>
+        <div class="field">
+          <label for="setupBranchCode">Branch Code *</label>
+          <input id="setupBranchCode" type="text">
+        </div>
+        <div class="field">
+          <label for="setupPaymentReference">Banking Reference *</label>
+          <input id="setupPaymentReference" type="text">
+        </div>
+        <div class="field full-width">
+          <label for="setupPaymentTerms">Banking Details / Payment Terms *</label>
+          <textarea id="setupPaymentTerms" rows="2"></textarea>
+        </div>
+        <div class="field">
+          <label for="setupPrefix">Invoice Prefix</label>
+          <input id="setupPrefix" type="text" value="INV">
+        </div>
+        <div class="field">
+          <label for="setupCurrency">Default Currency</label>
+          <select id="setupCurrency">
+            <option value="$">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="ZAR">ZAR (R)</option>
+          </select>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button id="saveSetupBtn" class="btn btn-primary" type="button">Save Business Profile</button>
+        <button id="skipSetupBtn" class="btn btn-secondary" type="button">Skip for now and start invoicing</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="protectionChoiceModal" class="modal-overlay hidden no-print" aria-modal="true" role="dialog" aria-labelledby="protectionChoiceHeading">
+    <div class="modal-card small">
+      <h2 id="protectionChoiceHeading">Protect Saved Business Profile?</h2>
+      <p>Choose how you want to secure your saved Business Profile settings.</p>
+      <div class="toolbar">
+        <button id="continueNoPasswordBtn" class="btn btn-primary" type="button">Continue without a password (Recommended)</button>
+        <button id="protectWithPasswordBtn" class="btn btn-secondary" type="button">Protect my saved business profile with a password</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="passwordModal" class="modal-overlay hidden no-print" aria-modal="true" role="dialog" aria-labelledby="passwordModalHeading">
+    <div class="modal-card small">
+      <h2 id="passwordModalHeading">Create Business Profile Password</h2>
+      <div class="grid one-col">
+        <div class="field">
+          <label for="profilePassword">New Password</label>
+          <input id="profilePassword" type="password">
+        </div>
+        <div class="field">
+          <label for="profilePasswordConfirm">Confirm Password</label>
+          <input id="profilePasswordConfirm" type="password">
+        </div>
+      </div>
+      <div class="toolbar">
+        <button id="savePasswordBtn" class="btn btn-primary" type="button">Save Password</button>
+        <button id="cancelPasswordBtn" class="btn btn-secondary" type="button">Cancel</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="verifyPasswordModal" class="modal-overlay hidden no-print" aria-modal="true" role="dialog" aria-labelledby="verifyModalHeading">
+    <div class="modal-card small">
+      <h2 id="verifyModalHeading">Verify Business Profile Password</h2>
+      <div class="field">
+        <label for="verifyProfilePassword">Password</label>
+        <input id="verifyProfilePassword" type="password">
+      </div>
+      <div class="toolbar">
+        <button id="verifyPasswordBtn" class="btn btn-primary" type="button">Verify</button>
+        <button id="cancelVerifyBtn" class="btn btn-secondary" type="button">Cancel</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="QuickTools is a premium software and digital products platform with fast utility tools and downloadable assets.">
-  <title>QuickTools | Software & Digital Products Platform</title>
+  <meta name="description" content="QuickTools is a premium software platform for browser-based business tools and digital products.">
+  <title>QuickTools | Premium Business Tools Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
@@ -17,8 +17,17 @@
   <header class="site-header" id="top">
     <div class="container header-row">
       <a href="index.html" class="brand" aria-label="QuickTools home">
-        <span class="logo-placeholder" aria-hidden="true">QT</span>
-        <span class="brand-text">QuickTools</span>
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 56 56" role="img" aria-label="QuickTools logo">
+            <rect x="3" y="3" width="50" height="50" rx="14" fill="#111827"></rect>
+            <path d="M16 20h12l-8 15h8" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M34 19h8v18h-8" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </span>
+        <span class="brand-meta">
+          <span class="brand-title">QuickTools</span>
+          <span class="brand-subtitle">Professional Tools for Everyday Business</span>
+        </span>
       </a>
 
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Open navigation menu">
@@ -30,30 +39,46 @@
       <nav class="main-nav" id="mainNav" aria-label="Main navigation">
         <a href="index.html" aria-current="page">Home</a>
         <a href="tools.html">Tools</a>
-        <a href="products.html">Digital Products</a>
-        <a href="categories.html">Categories</a>
+        <a href="products.html">Products</a>
+        <a href="#pricing">Pricing</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
       </nav>
 
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme">Dark</button>
+      <div class="header-actions">
+        <a class="icon-btn" href="#search-results" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
+          </svg>
+        </a>
+        <a class="btn btn-ghost" href="about.html">Account</a>
+        <a class="btn btn-primary" href="#pricing">Start Free Trial</a>
+      </div>
     </div>
   </header>
 
   <main id="main-content">
-    <section class="hero hero-premium" id="hero">
-      <div class="container hero-layout">
-        <div>
-          <p class="eyebrow">Software Platform for Utilities & Assets</p>
-          <h1>Build faster with smart tools and ready-made digital products.</h1>
+    <section class="hero-section" id="hero">
+      <div class="container hero-layout reveal-up">
+        <div class="hero-copy-col">
+          <p class="eyebrow">Business Productivity Platform</p>
+          <h1>Everything You Need To Run Your Business In One Place</h1>
           <p class="hero-copy">
-            QuickTools combines lightweight web utilities with premium digital products in one professional platform.
-            Everything loads from simple folder-based configuration files.
+            QuickTools combines QR codes, invoice generation, PDF utilities, business calculators, image tools,
+            text tools, and WhatsApp links in one secure browser platform.
           </p>
-
-          <div class="search-wrap glass-panel">
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#pricing">Start Free</a>
+            <a class="btn btn-secondary" href="tools.html">View Tools</a>
+          </div>
+          <div class="trust-badges">
+            <span>No Installation</span>
+            <span>Works on Mobile</span>
+            <span>Privacy First</span>
+            <span>Fast and Secure</span>
+          </div>
+          <div class="search-wrap">
             <label for="globalSearch" class="search-label">Search tools and products</label>
             <div class="search-input-row">
               <input
@@ -65,31 +90,97 @@
               >
               <button type="button" id="clearGlobalSearch">Clear</button>
             </div>
-            <p id="searchHint">Smart search across both tools and digital products.</p>
+            <p id="searchHint">Smart search across tools and products from your existing config files.</p>
           </div>
         </div>
 
-        <aside class="hero-stat-stack glass-panel" aria-label="Platform statistics">
-          <h2>Platform Stats</h2>
-          <div class="stats-grid" id="statsGrid">
-            <article class="stat-card"><h3>Total Tools</h3><p id="statTotalTools">0</p></article>
-            <article class="stat-card"><h3>Available Tools</h3><p id="statAvailableTools">0</p></article>
-            <article class="stat-card"><h3>Coming Soon</h3><p id="statComingSoon">0</p></article>
-            <article class="stat-card"><h3>Digital Products</h3><p id="statDigitalProducts">0</p></article>
-            <article class="stat-card"><h3>Featured Items</h3><p id="statFeaturedItems">0</p></article>
+        <aside class="hero-visual-col" aria-label="Dashboard illustration">
+          <div class="dashboard-mockup">
+            <div class="dash-head">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="dash-grid">
+              <article>
+                <h3>Tool Activity</h3>
+                <p>Live loading from manifests</p>
+              </article>
+              <article>
+                <h3>Search Accuracy</h3>
+                <p>Unified across sections</p>
+              </article>
+              <article>
+                <h3>Platform Status</h3>
+                <p>Optimized for browser use</p>
+              </article>
+              <article>
+                <h3>Future Ready</h3>
+                <p>Accounts, billing, saved tools</p>
+              </article>
+            </div>
+          </div>
+          <div class="hero-float-card">
+            <strong>Dashboard Preview</strong>
+            <span>Premium SaaS workspace style</span>
           </div>
         </aside>
       </div>
-      <div class="hero-shape" aria-hidden="true"></div>
     </section>
 
-    <section class="section-block" id="search-results" aria-labelledby="searchResultsHeading">
+    <section class="section-block section-alt reveal-up" id="social-proof" aria-labelledby="socialProofHeading">
       <div class="container">
         <div class="section-head">
-          <h2 id="searchResultsHeading">Search Results</h2>
-          <p>Results update live while you type.</p>
+          <h2 id="socialProofHeading">Trusted Productivity Infrastructure</h2>
+          <p>Built as a reliable static platform with enterprise-level user experience and speed.</p>
         </div>
-        <div class="filter-row glass-panel" id="homeFilters">
+        <div class="proof-grid">
+          <article class="proof-card">
+            <h3>10+</h3>
+            <p>Business Tools</p>
+          </article>
+          <article class="proof-card">
+            <h3>100%</h3>
+            <p>Private</p>
+          </article>
+          <article class="proof-card">
+            <h3>Every Device</h3>
+            <p>Works Everywhere</p>
+          </article>
+          <article class="proof-card">
+            <h3>Zero Setup</h3>
+            <p>No Installation</p>
+          </article>
+          <article class="proof-card">
+            <h3>Always Improving</h3>
+            <p>Growing Platform</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block reveal-up" id="features" aria-labelledby="featuresHeading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="featuresHeading">Platform Features</h2>
+          <p>A modern software experience designed for speed, safety, and long-term reliability.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card"><h3>Fast</h3><p>Optimized static delivery and lightweight architecture.</p></article>
+          <article class="feature-card"><h3>Secure</h3><p>Minimal attack surface and clear file-based structure.</p></article>
+          <article class="feature-card"><h3>Privacy</h3><p>Core workflows run in browser with no forced account dependency.</p></article>
+          <article class="feature-card"><h3>Cross Platform</h3><p>Consistent user experience across desktop, tablet, and mobile.</p></article>
+          <article class="feature-card"><h3>Offline Capable</h3><p>Ready for future progressive enhancements and cached workflows.</p></article>
+          <article class="feature-card"><h3>Free Updates</h3><p>Future product and tool updates fit directly into your folder model.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block reveal-up" id="search-results" aria-labelledby="searchResultsHeading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="searchResultsHeading">Explore Everything</h2>
+          <p>Live search, filtering, and sorting across tools and digital products.</p>
+        </div>
+        <div class="filter-row" id="homeFilters">
           <label>
             Type
             <select id="homeTypeFilter">
@@ -133,57 +224,100 @@
       </div>
     </section>
 
-    <section class="section-block" id="featured-tools" aria-labelledby="featuredToolsHeading">
+    <section class="section-block reveal-up" id="featured-tools" aria-labelledby="featuredToolsHeading">
       <div class="container">
         <div class="section-head">
           <h2 id="featuredToolsHeading">Featured Tools</h2>
-          <p>Highlighted utilities selected from your configuration files.</p>
+          <p>Professional tool cards loaded dynamically from your current folders.</p>
         </div>
         <div class="grid-auto" id="featuredToolsGrid" aria-busy="true"></div>
       </div>
     </section>
 
-    <section class="section-block alt" id="featured-products" aria-labelledby="featuredProductsHeading">
+    <section class="section-block section-alt reveal-up" id="featured-products" aria-labelledby="featuredProductsHeading">
       <div class="container">
         <div class="section-head">
-          <h2 id="featuredProductsHeading">Featured Digital Products</h2>
-          <p>Automatically loaded from product folders.</p>
+          <h2 id="featuredProductsHeading">Featured Products</h2>
+          <p>Premium digital products auto-loaded from product config files.</p>
         </div>
         <div class="grid-auto" id="featuredProductsGrid" aria-busy="true"></div>
       </div>
     </section>
 
-    <section class="section-block" id="newest-tools" aria-labelledby="newestToolsHeading">
+    <section class="section-block reveal-up" id="products-showcase" aria-labelledby="productsShowcaseHeading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="productsShowcaseHeading">Digital Products Marketplace</h2>
+          <p>Prepared for future Gumroad or PayFast checkout workflows.</p>
+        </div>
+        <div class="product-grid">
+          <article class="product-sale-card">
+            <img src="https://placehold.co/720x420/f3f4f6/111827?text=Business+Templates" alt="Business templates placeholder">
+            <h3>Business Templates Pack</h3>
+            <p>Operations-ready templates for contracts, proposals, and planning.</p>
+            <div class="product-meta"><span>R99</span><span>Business</span></div>
+            <div class="product-actions"><a href="products.html">Download</a><a href="products.html">Buy Now</a></div>
+          </article>
+          <article class="product-sale-card">
+            <img src="https://placehold.co/720x420/f3f4f6/111827?text=Invoice+Templates" alt="Invoice templates placeholder">
+            <h3>Invoice Templates</h3>
+            <p>Client-ready templates tailored for freelancers and small businesses.</p>
+            <div class="product-meta"><span>R69</span><span>Finance</span></div>
+            <div class="product-actions"><a href="products.html">Download</a><a href="products.html">Buy Now</a></div>
+          </article>
+          <article class="product-sale-card">
+            <img src="https://placehold.co/720x420/f3f4f6/111827?text=Planner+Pack" alt="Planner pack placeholder">
+            <h3>Planner and Diary Bundle</h3>
+            <p>Printable and digital formats for teams, students, and creators.</p>
+            <div class="product-meta"><span>R79</span><span>Productivity</span></div>
+            <div class="product-actions"><a href="products.html">Download</a><a href="products.html">Buy Now</a></div>
+          </article>
+          <article class="product-sale-card">
+            <img src="https://placehold.co/720x420/f3f4f6/111827?text=Canva+Templates" alt="Canva templates placeholder">
+            <h3>Canva Social Media Kit</h3>
+            <p>Marketing-ready graphics and editable layouts for campaigns.</p>
+            <div class="product-meta"><span>R89</span><span>Marketing</span></div>
+            <div class="product-actions"><a href="products.html">Download</a><a href="products.html">Buy Now</a></div>
+          </article>
+          <article class="product-sale-card">
+            <img src="https://placehold.co/720x420/f3f4f6/111827?text=Kids+Activity+Pack" alt="Kids activity pack placeholder">
+            <h3>Kids Activity Printables</h3>
+            <p>Ready-to-print educational and creative activities for families.</p>
+            <div class="product-meta"><span>R59</span><span>Education</span></div>
+            <div class="product-actions"><a href="products.html">Download</a><a href="products.html">Buy Now</a></div>
+          </article>
+          <article class="product-sale-card">
+            <img src="https://placehold.co/720x420/f3f4f6/111827?text=Bible+Resources" alt="Bible resources placeholder">
+            <h3>Bible Study Resources</h3>
+            <p>Modern church and study resources for teams and ministries.</p>
+            <div class="product-meta"><span>R109</span><span>Church</span></div>
+            <div class="product-actions"><a href="products.html">Download</a><a href="products.html">Buy Now</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block reveal-up" id="newest-tools" aria-labelledby="newestToolsHeading">
       <div class="container">
         <div class="section-head">
           <h2 id="newestToolsHeading">Newest Tools</h2>
-          <p>Automatically sorted from tool creation and update dates.</p>
+          <p>Automatically sorted from creation and update dates.</p>
         </div>
         <div class="grid-auto" id="newestToolsGrid" aria-busy="true"></div>
       </div>
     </section>
 
-    <section class="section-block alt" id="newest-products" aria-labelledby="newestProductsHeading">
+    <section class="section-block section-alt reveal-up" id="newest-products" aria-labelledby="newestProductsHeading">
       <div class="container">
         <div class="section-head">
           <h2 id="newestProductsHeading">Newest Products</h2>
-          <p>Latest additions from product folders and config files.</p>
+          <p>Automatically surfaced from your existing product folder structure.</p>
         </div>
         <div class="grid-auto" id="newestProductsGrid" aria-busy="true"></div>
       </div>
     </section>
 
-    <section class="section-block" id="categories" aria-labelledby="categoriesHeading">
-      <div class="container">
-        <div class="section-head">
-          <h2 id="categoriesHeading">Categories</h2>
-          <p>Tools and products grouped by category.</p>
-        </div>
-        <div class="pill-grid" id="categoryPills"></div>
-      </div>
-    </section>
-
-    <section class="section-block" id="latest-releases" aria-labelledby="latestReleasesHeading">
+    <section class="section-block reveal-up" id="latest-releases" aria-labelledby="latestReleasesHeading">
       <div class="container">
         <div class="section-head">
           <h2 id="latestReleasesHeading">Latest Releases</h2>
@@ -193,66 +327,146 @@
       </div>
     </section>
 
-    <section class="section-block" id="why-choose" aria-labelledby="whyChooseHeading">
+    <section class="section-block reveal-up" id="categories" aria-labelledby="categoriesHeading">
       <div class="container">
         <div class="section-head">
-          <h2 id="whyChooseHeading">Why Choose QuickTools</h2>
+          <h2 id="categoriesHeading">Categories</h2>
+          <p>Category discovery remains fully dynamic from your JSON files.</p>
         </div>
-        <div class="value-grid">
-          <article class="value-card glass-panel"><h3>Folder-Based Management</h3><p>Add items with config files and grow at your own pace.</p></article>
-          <article class="value-card glass-panel"><h3>Fast Static Hosting</h3><p>No backend, no database, and compatible with free static hosting platforms.</p></article>
-          <article class="value-card glass-panel"><h3>Professional Product Surface</h3><p>Enterprise-style UX with smooth animations, premium cards, and robust search.</p></article>
+        <div class="pill-grid" id="categoryPills"></div>
+      </div>
+    </section>
+
+    <section class="section-block section-alt reveal-up" id="pricing" aria-labelledby="pricingHeading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="pricingHeading">Pricing</h2>
+          <p>Designed for growth. Billing integration can be enabled later.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <h3>Free Plan</h3>
+            <p class="price">7 Day Trial</p>
+            <ul>
+              <li>Unlimited access</li>
+              <li>No credit card</li>
+              <li>Tools and products preview</li>
+            </ul>
+            <a href="tools.html" class="btn btn-secondary">Start Trial</a>
+          </article>
+          <article class="pricing-card pricing-featured">
+            <span class="pricing-tag">Premium</span>
+            <h3>Premium</h3>
+            <p class="price">R50<span>/month</span></p>
+            <ul>
+              <li>Unlimited tools</li>
+              <li>Unlimited products</li>
+              <li>Future tools included</li>
+              <li>Priority support</li>
+            </ul>
+            <a href="products.html" class="btn btn-primary">Choose Premium</a>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section-block alt" id="testimonials" aria-labelledby="testimonialsHeading">
+    <section class="section-block reveal-up" id="about-platform" aria-labelledby="aboutPlatformHeading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="aboutPlatformHeading">About QuickTools</h2>
+          <p>QuickTools helps businesses save time with secure browser-based workflows and no software installation.</p>
+        </div>
+        <div class="about-grid">
+          <article><h3>Save Time</h3><p>Fast access to practical tools used in daily operations.</p></article>
+          <article><h3>Secure Architecture</h3><p>Simple static structure with privacy-first experience.</p></article>
+          <article><h3>Browser Native</h3><p>Everything works online without installs or setup friction.</p></article>
+          <article><h3>Future Ready</h3><p>Prepared for subscriptions, saved tools, and account workflows.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block section-alt reveal-up" id="testimonials" aria-labelledby="testimonialsHeading">
       <div class="container">
         <div class="section-head">
           <h2 id="testimonialsHeading">Testimonials</h2>
-          <p>Placeholder section for future customer feedback.</p>
+          <p>Professional feedback layout with placeholder testimonials.</p>
         </div>
-        <div class="placeholder-box">Customer stories and ratings will appear here.</div>
+        <div class="testimonial-grid">
+          <article class="testimonial-card">
+            <p class="testimonial-rating">5/5</p>
+            <blockquote>QuickTools helped us replace multiple scattered tools with one clean workflow.</blockquote>
+            <p class="testimonial-author">A. Mokoena, Operations Manager</p>
+          </article>
+          <article class="testimonial-card">
+            <p class="testimonial-rating">5/5</p>
+            <blockquote>The interface feels premium and clients trust it immediately.</blockquote>
+            <p class="testimonial-author">J. Dube, Studio Founder</p>
+          </article>
+          <article class="testimonial-card">
+            <p class="testimonial-rating">5/5</p>
+            <blockquote>Simple, fast, and professional. Exactly what a productivity platform should be.</blockquote>
+            <p class="testimonial-author">L. Naidoo, Freelancer</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="section-block" id="newsletter" aria-labelledby="newsletterHeading">
+    <section class="section-block reveal-up" id="faq" aria-labelledby="faqHeading">
       <div class="container">
         <div class="section-head">
-          <h2 id="newsletterHeading">Newsletter</h2>
-          <p>Placeholder section for future newsletter subscription form.</p>
+          <h2 id="faqHeading">Frequently Asked Questions</h2>
+          <p>Answers to the most common platform questions.</p>
         </div>
-        <div class="placeholder-box">Newsletter signup component placeholder.</div>
+        <div class="faq-list" data-faq-list>
+          <article class="faq-item">
+            <button class="faq-trigger" type="button" data-faq-toggle aria-expanded="false">Is my data private?</button>
+            <div class="faq-content" hidden><p>Yes. Core workflows run in the browser and are designed with privacy in mind.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" type="button" data-faq-toggle aria-expanded="false">Do I install software?</button>
+            <div class="faq-content" hidden><p>No installation is needed. QuickTools works directly in your browser.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" type="button" data-faq-toggle aria-expanded="false">Can I use mobile?</button>
+            <div class="faq-content" hidden><p>Yes. The platform is fully responsive for mobile, tablet, and desktop.</p></div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-trigger" type="button" data-faq-toggle aria-expanded="false">How does subscription work?</button>
+            <div class="faq-content" hidden><p>The pricing UI is ready now, and payment integrations can be added in future releases.</p></div>
+          </article>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer" id="contact">
+  <footer class="site-footer" id="footer">
     <div class="container footer-grid">
       <div>
         <h2>QuickTools</h2>
-        <p>Professional software utilities and digital products platform.</p>
+        <p>Premium browser-based tools and digital products platform.</p>
       </div>
       <div>
-        <h3>Platform</h3>
+        <h3>Quick Links</h3>
+        <a href="index.html">Home</a>
         <a href="tools.html">Tools</a>
-        <a href="products.html">Digital Products</a>
-        <a href="categories.html">Categories</a>
-      </div>
-      <div>
-        <h3>Company</h3>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="products.html">Products</a>
+        <a href="#pricing">Pricing</a>
       </div>
       <div>
         <h3>Legal</h3>
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h3>Social</h3>
+        <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="#top">Back to top</a>
+        <p>Version 1.0.0</p>
       </div>
     </div>
     <div class="container footer-bottom">
-      <p>© 2026 QuickTools. Ready for public deployment.</p>
-      <a href="#top">Back to top</a>
+      <p>Copyright 2026 QuickTools. All rights reserved.</p>
     </div>
   </footer>
 </body>

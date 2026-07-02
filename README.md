@@ -12,8 +12,8 @@ This repository contains the QuickTools static website platform for software too
 
 - Multi-page professional platform design
 - Modern homepage with hero, statistics, featured sections, categories, latest releases, testimonials placeholder, and newsletter placeholder
-- Tools page with automatic config-driven cards
-- Digital Products page with automatic config-driven cards
+- Tools page with automatic repo-tree discovery for config-driven cards
+- Digital Products page with automatic repo-tree discovery for config-driven cards
 - Category page and legal/company pages
 - Global navigation: Home, Tools, Digital Products, Categories, About, Contact, Privacy, Terms
 - Search support for tools and products
@@ -144,8 +144,9 @@ Website/
 
 ## Automatic Data Loading
 
-- Tools are loaded from tools/index.json and each tool folder config.json.
-- Products are loaded from products/index.json and each product folder config.json.
+- Tools are discovered from the repository tree by locating every matching tools/**/config.json file.
+- Products are discovered from the repository tree by locating every matching products/**/config.json file.
+- The manifest JSON files remain as a fallback for local or offline viewing.
 - Cards and featured sections are generated dynamically in JavaScript.
 - Statistics are generated dynamically from loaded configs.
 
@@ -173,8 +174,10 @@ All tool and product config.json files support:
 To add a new tool or product:
 
 1. Create a new folder in tools or products.
-2. Add required files (config.json and content files).
+2. Add required files (config.json, index.html, style.css, script.js, icon.png, screenshot.png).
 3. Refresh the website.
+
+This keeps the platform ready for a future Admin page that can upload folders manually without changing site code.
 
 The UI sections (featured, newest, search, filters, and stats) are generated from configuration data.
 

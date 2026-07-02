@@ -7,7 +7,7 @@
   <title>QuickTools | Tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
@@ -16,8 +16,17 @@
   <header class="site-header" id="top">
     <div class="container header-row">
       <a href="index.html" class="brand" aria-label="QuickTools home">
-        <span class="logo-placeholder" aria-hidden="true">QT</span>
-        <span class="brand-text">QuickTools</span>
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 56 56" role="img" aria-label="QuickTools logo">
+            <rect x="3" y="3" width="50" height="50" rx="14" fill="#111827"></rect>
+            <path d="M16 20h12l-8 15h8" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M34 19h8v18h-8" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </span>
+        <span class="brand-meta">
+          <span class="brand-title">QuickTools</span>
+          <span class="brand-subtitle">Professional Tools for Everyday Business</span>
+        </span>
       </a>
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Open navigation menu">
         <span></span><span></span><span></span>
@@ -25,19 +34,26 @@
       <nav class="main-nav" id="mainNav" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="tools.html" aria-current="page">Tools</a>
-        <a href="products.html">Digital Products</a>
-        <a href="categories.html">Categories</a>
+        <a href="products.html">Products</a>
+        <a href="index.html#pricing">Pricing</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
       </nav>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme">Dark</button>
+      <div class="header-actions">
+        <a class="icon-btn" href="#main-content" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
+          </svg>
+        </a>
+        <a class="btn btn-ghost" href="about.html">Account</a>
+        <a class="btn btn-primary" href="index.html#pricing">Start Free Trial</a>
+      </div>
     </div>
   </header>
 
   <main id="main-content">
-    <section class="hero compact-hero">
+    <section class="hero-section compact-hero">
       <div class="container">
         <p class="eyebrow">Tools Library</p>
         <h1>Professional utilities for daily productivity.</h1>
@@ -96,8 +112,36 @@
   </main>
 
   <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h2>QuickTools</h2>
+        <p>Professional software utilities and digital products platform.</p>
+      </div>
+      <div>
+        <h3>Platform</h3>
+        <a href="tools.html">Tools</a>
+        <a href="products.html">Products</a>
+        <a href="categories.html">Categories</a>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <div class="footer-social">
+          <a href="#" aria-label="QuickTools on X">X</a>
+          <a href="#" aria-label="QuickTools on LinkedIn">in</a>
+          <a href="#" aria-label="QuickTools on GitHub">GH</a>
+        </div>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <p>Version 1.0.0</p>
+      </div>
+    </div>
     <div class="container footer-bottom">
-      <p>© 2026 QuickTools.</p>
+      <p>© 2026 QuickTools. Built for modern digital workflows.</p>
       <a href="#top">Back to top</a>
     </div>
   </footer>

@@ -14,6 +14,16 @@ const statusClassMap = {
   Unavailable: "status-unavailable"
 };
 
+const githubRepo = {
+  owner: "wigget17-dotcom",
+  repo: "quicktools-website",
+  branch: "main"
+};
+
+const githubApiBase = `https://api.github.com/repos/${githubRepo.owner}/${githubRepo.repo}`;
+
+let repoTreePromise = null;
+
 const pageType = document.body.dataset.page || "home";
 
 const fetchJson = async (path) => {
@@ -43,6 +53,34 @@ const parseDate = (value) => {
 };
 
 const unique = (items) => Array.from(new Set(items));
+
+const isExternalUrl = (value) => /^(?:[a-z]+:)?\/\//i.test(value) || value.startsWith("data:") || value.startsWith("mailto:") || value.startsWith("tel:");
+
+const resolveRelativePath = (folderPath, value) => {
+  if (typeof value !== "string" || value.trim() === "") {
+    return "";
+  }
+
+  const trimmed = value.trim();
+
+  if (isExternalUrl(trimmed) || trimmed.startsWith("/")) {
+    return trimmed;
+  }
+
+  if (trimmed.startsWith("./")) {
+    return `${folderPath}/${trimmed.slice(2)}`;
+  }
+
+  if (trimmed.startsWith("../")) {
+    return trimmed;
+  }
+
+  if (trimmed.includes("/")) {
+    return trimmed;
+  }
+
+  return `${folderPath}/${trimmed}`;
+};
 
 const requiredConfigFields = [
   "name",
@@ -101,22 +139,55 @@ const discoverFoldersFromManifest = async (indexFile, indexKey) => {
   }
 };
 
-const loadCollection = async ({
-  basePath,
-  indexFile,
-  indexKey,
-  type
-}) => {
-  const folders = await discoverFoldersFromManifest(indexFile, indexKey);
+const loadRepoTree = async () => {
+  if (!repoTreePromise) {
+    repoTreePromise = (async () => {
+      try {
+        const ref = await fetchJson(`${githubApiBase}/git/ref/heads/${githubRepo.branch}`);
+        const commit = await fetchJson(ref.object.url);
+        const treeSha = commit?.tree?.sha;
+
+        if (!treeSha) {
+          return [];
+        }
+
+        const tree = await fetchJson(`${githubApiBase}/git/trees/${treeSha}?recursive=1`);
+        return Array.isArray(tree.tree) ? tree.tree : [];
+      } catch {
+        return [];
+      }
+    })();
+  }
+
+  return repoTreePromise;
+};
+
+const loadCollectionFromRepo = async ({ rootPath, type }) => {
+  const tree = await loadRepoTree();
+  const configPaths = tree
+    .filter((entry) => entry.type === "blob" && entry.path.startsWith(`${rootPath}/`) && entry.path.endsWith("/config.json"))
+    .map((entry) => entry.path)
+    .sort((a, b) => a.localeCompare(b));
 
   const results = await Promise.allSettled(
-    folders.map(async (folder) => {
-      const config = await fetchJson(`${basePath}/${folder}/config.json`);
+    configPaths.map(async (configPath) => {
+      const config = await fetchJson(`https://raw.githubusercontent.com/${githubRepo.owner}/${githubRepo.repo}/${githubRepo.branch}/${configPath}`);
+      const folderPath = configPath.replace(/\/config\.json$/, "");
+      const folder = typeof config.folder === "string" && config.folder.trim() !== ""
+        ? config.folder.trim()
+        : folderPath.split("/").pop();
+
       return {
         ...config,
         type,
         status: normalizeStatus(config.status),
-        category: normalizeCategory(config.category)
+        category: normalizeCategory(config.category),
+        folder,
+        url: resolveRelativePath(folderPath, config.url),
+        download: resolveRelativePath(folderPath, config.download),
+        thumbnail: resolveRelativePath(folderPath, config.thumbnail),
+        icon: typeof config.icon === "string" ? config.icon.trim() : config.icon,
+        screenshot: resolveRelativePath(folderPath, config.screenshot)
       };
     })
   );
@@ -125,6 +196,52 @@ const loadCollection = async ({
     .filter((result) => result.status === "fulfilled")
     .map((result) => result.value)
     .filter(validateConfig);
+};
+
+const loadCollectionFromManifest = async ({ basePath, indexFile, indexKey, type }) => {
+  const folders = await discoverFoldersFromManifest(indexFile, indexKey);
+
+  const results = await Promise.allSettled(
+    folders.map(async (folder) => {
+      const config = await fetchJson(`${basePath}/${folder}/config.json`);
+      const folderPath = `${basePath}/${folder}`;
+
+      return {
+        ...config,
+        type,
+        status: normalizeStatus(config.status),
+        category: normalizeCategory(config.category),
+        folder: typeof config.folder === "string" && config.folder.trim() !== "" ? config.folder.trim() : folder,
+        url: resolveRelativePath(folderPath, config.url),
+        download: resolveRelativePath(folderPath, config.download),
+        thumbnail: resolveRelativePath(folderPath, config.thumbnail),
+        icon: typeof config.icon === "string" ? config.icon.trim() : config.icon,
+        screenshot: resolveRelativePath(folderPath, config.screenshot)
+      };
+    })
+  );
+
+  return results
+    .filter((result) => result.status === "fulfilled")
+    .map((result) => result.value)
+    .filter(validateConfig);
+};
+
+const loadCollection = async ({
+  basePath,
+  indexFile,
+  indexKey,
+  type
+}) => {
+  if (window.location.protocol !== "file:") {
+    const repoResults = await loadCollectionFromRepo({ rootPath: basePath, type });
+
+    if (repoResults.length > 0) {
+      return repoResults;
+    }
+  }
+
+  return loadCollectionFromManifest({ basePath, indexFile, indexKey, type });
 };
 
 const compareBySortMode = (sortMode) => {
@@ -185,6 +302,32 @@ const applyFilters = (items, {
     .sort(compareBySortMode(sort));
 };
 
+const cardIconSvg = (item) => {
+  const key = `${item.icon} ${item.folder} ${item.category}`.toLowerCase();
+
+  if (/qr|barcode|code/.test(key)) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="6" height="6"></rect><rect x="15" y="3" width="6" height="6"></rect><rect x="3" y="15" width="6" height="6"></rect><path d="M15 15h2v2h-2zm4 0h2v2h-2zm-2 4h2v2h-2"></path></svg>';
+  }
+
+  if (/invoice|vat|business/.test(key)) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l4 4v14H3V3h4z"></path><path d="M14 3v5h5"></path><line x1="7" y1="12" x2="17" y2="12"></line><line x1="7" y1="16" x2="14" y2="16"></line></svg>';
+  }
+
+  if (/pdf|text|guide|ebook/.test(key)) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l4 4v14H7z"></path><path d="M17 3v4h4"></path><line x1="10" y1="12" x2="18" y2="12"></line><line x1="10" y1="16" x2="18" y2="16"></line></svg>';
+  }
+
+  if (/password|secure|lock/.test(key)) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path><circle cx="12" cy="15" r="1.5"></circle></svg>';
+  }
+
+  if (/unit|convert|calculator/.test(key)) {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="8" y1="7" x2="16" y2="7"></line><path d="M8 12h3v3H8zm5 0h3v3h-3zm-5 5h3v2H8zm5 0h3v2h-3"></path></svg>';
+  }
+
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>';
+};
+
 const createItemCard = (item, index = 0) => {
   const card = document.createElement("article");
   card.className = "item-card";
@@ -196,7 +339,7 @@ const createItemCard = (item, index = 0) => {
 
   const icon = document.createElement("span");
   icon.className = "item-icon";
-  icon.textContent = (item.icon || "it").slice(0, 2).toUpperCase();
+  icon.innerHTML = cardIconSvg(item);
   icon.setAttribute("aria-hidden", "true");
 
   const status = document.createElement("span");
@@ -229,7 +372,7 @@ const createItemCard = (item, index = 0) => {
   const link = document.createElement("a");
   link.className = "item-link";
   link.href = item.url || (item.type === "tool" ? "tools.html" : "products.html");
-  link.textContent = item.type === "tool" ? "Open tool" : "View product";
+  link.textContent = item.type === "tool" ? "Launch" : "Open";
 
   const categoryPill = document.createElement("span");
   categoryPill.className = "category-pill";
@@ -239,6 +382,81 @@ const createItemCard = (item, index = 0) => {
   card.append(title, description, meta);
 
   return card;
+};
+
+const initRevealAnimations = () => {
+  const elements = Array.from(document.querySelectorAll(".reveal-up"));
+
+  if (elements.length === 0 || !("IntersectionObserver" in window)) {
+    elements.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  elements.forEach((element) => observer.observe(element));
+};
+
+const initFaqAccordion = () => {
+  const triggers = Array.from(document.querySelectorAll("[data-faq-toggle]"));
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const item = trigger.closest(".faq-item");
+      const panel = item ? item.querySelector(".faq-content") : null;
+
+      if (!panel) {
+        return;
+      }
+
+      const isOpen = trigger.getAttribute("aria-expanded") === "true";
+      trigger.setAttribute("aria-expanded", String(!isOpen));
+      panel.hidden = isOpen;
+    });
+  });
+};
+
+const initTestimonialCarousel = () => {
+  const track = document.querySelector("[data-testimonial-track]");
+
+  if (!track) {
+    return;
+  }
+
+  const cards = Array.from(track.children);
+
+  if (cards.length <= 1) {
+    return;
+  }
+
+  const prevButton = document.querySelector("[data-testimonial-prev]");
+  const nextButton = document.querySelector("[data-testimonial-next]");
+  let index = 0;
+
+  const goTo = (nextIndex) => {
+    index = (nextIndex + cards.length) % cards.length;
+    const offset = index * track.clientWidth;
+    track.scrollTo({ left: offset, behavior: "smooth" });
+  };
+
+  if (prevButton) {
+    prevButton.addEventListener("click", () => goTo(index - 1));
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener("click", () => goTo(index + 1));
+  }
+
+  window.setInterval(() => {
+    goTo(index + 1);
+  }, 7000);
 };
 
 const renderIntoGrid = (grid, items) => {
@@ -379,34 +597,19 @@ const renderCategoryPills = async (tools, products) => {
   );
 };
 
-const updateThemeToggleLabel = (theme) => {
-  const toggle = document.getElementById("themeToggle");
+const initHeaderState = () => {
+  const header = document.querySelector(".site-header");
 
-  if (toggle) {
-    toggle.textContent = theme === "dark" ? "Light" : "Dark";
+  if (!header) {
+    return;
   }
-};
 
-const applyTheme = (theme) => {
-  const normalized = theme === "dark" ? "dark" : "light";
-  document.documentElement.dataset.theme = normalized;
-  localStorage.setItem("qt-theme", normalized);
-  updateThemeToggleLabel(normalized);
-};
+  const update = () => {
+    header.classList.toggle("scrolled", window.scrollY > 14);
+  };
 
-const initTheme = () => {
-  const stored = localStorage.getItem("qt-theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  applyTheme(stored || (prefersDark ? "dark" : "light"));
-
-  const toggle = document.getElementById("themeToggle");
-
-  if (toggle) {
-    toggle.addEventListener("click", () => {
-      const current = document.documentElement.dataset.theme;
-      applyTheme(current === "dark" ? "light" : "dark");
-    });
-  }
+  update();
+  window.addEventListener("scroll", update, { passive: true });
 };
 
 const initMobileMenu = () => {
@@ -521,8 +724,11 @@ const initCategoriesPage = async () => {
 };
 
 const init = async () => {
-  initTheme();
+  initHeaderState();
   initMobileMenu();
+  initRevealAnimations();
+  initFaqAccordion();
+  initTestimonialCarousel();
 
   if (pageType === "home") {
     await initHome();
