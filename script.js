@@ -90,6 +90,10 @@ const toolBadgeMap = {
   free: "Free"
 };
 
+const officialToolIconImages = {
+  "qr-code-generator": "assets/images/tools/qr-code-generator.png"
+};
+
 const getItemIconSvg = (item) => {
   const folder = String(item.folder || "").toLowerCase();
   const category = String(item.category || "").toLowerCase();
@@ -405,6 +409,30 @@ const applyFilters = (items, {
 
 const cardIconSvg = (item) => getItemIconSvg(item);
 
+const createCardIconElement = (item) => {
+  const icon = document.createElement("span");
+  icon.className = "item-icon";
+  icon.setAttribute("aria-hidden", "true");
+
+  const folderKey = String(item.folder || "").toLowerCase();
+  const imageSrc = officialToolIconImages[folderKey];
+
+  if (item.type === "tool" && imageSrc) {
+    icon.classList.add("item-icon-image");
+    const image = document.createElement("img");
+    image.className = "item-icon-media";
+    image.src = imageSrc;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    icon.append(image);
+    return icon;
+  }
+
+  icon.innerHTML = cardIconSvg(item);
+  return icon;
+};
+
 const buildCardBadges = (item) => {
   if (item.type === "tool") {
     return [toolBadgeMap.free, toolBadgeMap.privacy, toolBadgeMap.browser];
@@ -422,10 +450,7 @@ const createItemCard = (item, index = 0) => {
   const visual = document.createElement("div");
   visual.className = "item-visual";
 
-  const icon = document.createElement("span");
-  icon.className = "item-icon";
-  icon.innerHTML = cardIconSvg(item);
-  icon.setAttribute("aria-hidden", "true");
+  const icon = createCardIconElement(item);
 
   const visualText = document.createElement("div");
   visualText.className = "item-visual-text";
