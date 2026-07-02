@@ -365,19 +365,7 @@ const loadCollection = async ({
   indexKey,
   type
 }) => {
-  if (window.location.protocol !== "file:") {
-    const repoResults = await loadCollectionFromRepo({
-      rootPath: basePath,
-      type,
-      indexFile,
-      indexKey
-    });
-
-    if (repoResults.length > 0) {
-      return repoResults;
-    }
-  }
-
+  // Always use manifest-driven discovery for deterministic, cache-friendly listings.
   return loadCollectionFromManifest({ basePath, indexFile, indexKey, type });
 };
 
