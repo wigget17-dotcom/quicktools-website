@@ -96,7 +96,8 @@ const toolBadgeMap = {
 };
 
 const officialToolIconImages = {
-  "qr-code-generator": "assets/images/tools/qr-code-generator-v2.png"
+  "qr-code-generator": "assets/images/tools/qr-code-generator-v2.png",
+  "invoice-generator": "assets/images/tools/invoice-generator-official.png"
 };
 
 const officialUnavailableImage = "assets/images/tools/coming-soon.png";
@@ -114,6 +115,10 @@ const getOfficialToolImage = (item) => {
 
   if (item.type === "tool" && nameKey === "qr code generator") {
     return officialToolIconImages["qr-code-generator"];
+  }
+
+  if (item.type === "tool" && nameKey === "invoice generator") {
+    return officialToolIconImages["invoice-generator"];
   }
 
   return "";
